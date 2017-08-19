@@ -7,6 +7,9 @@ import { AngularFireModule } from 'angularfire2';
 import { FIREBASE_CONFIG} from './app.firebase.config'; 
 import { AngularFireAuthModule } from 'angularfire2/auth'; 
 
+//Facebook 
+import {Facebook } from '@ionic-native/facebook'; 
+
 //pages
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
@@ -41,7 +44,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler}, 
+    Facebook
   ]
 })
 export class AppModule {}

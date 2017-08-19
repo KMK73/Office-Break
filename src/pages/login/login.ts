@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { User } from "../../models/user";
 import {AngularFireAuth} from 'angularfire2/auth'; 
 import {TabsPage} from '../tabs/tabs'; 
+import firebase from 'firebase'; 
 
 /**
  * Generated class for the LoginPage page.
@@ -38,6 +39,22 @@ export class LoginPage {
 
   register(){
     this.navCtrl.push('RegisterPage'); 
+  }
+
+  /**
+   * Login with Facebook 
+   */
+  facebookLogin() {
+    let provider = new firebase.auth.FacebookAuthProvider(); 
+
+    firebase.auth().signInWithRedirect(provider).then(
+      () => {
+          firebase.auth().getRedirectResult().then((result) =>{
+            alert(JSON.stringify(result));
+          }).catch(function(error) {
+            alert(JSON.stringify(error));
+          });
+      }) 
   }
 
 }

@@ -2,5 +2,7 @@
   "name": "OfficeBreak",
   "app_id": "591fc198",
   "type": "ionic-angular",
-  "integrations": {}
+  "integrations": {
+    "cordova": {}
+  }
 }
