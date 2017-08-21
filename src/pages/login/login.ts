@@ -4,7 +4,6 @@ import { User } from "../../models/user";
 import { Account } from "../../models/account.interface";
 import {TabsPage} from '../tabs/tabs'; 
 import { AuthService } from '../../providers/auth/auth'; 
-import { Facebook } from "@ionic-native/facebook";
 
 /**
  * Generated class for the LoginPage page.
@@ -23,8 +22,7 @@ export class LoginPage {
   user = {} as User; 
   account = {} as Account; 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private auth: AuthService,
-    private FB: Facebook) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private auth: AuthService) {
   }
 
   async login(){
@@ -43,51 +41,17 @@ export class LoginPage {
   }
 
   /**
-   * Login with Facebook 
+   * Connect to facebook from auth service to login user 
    */
-  // facebookLogin() {
-
-  //     //   this.FB.login(['public_profile', 'user_friends', 'email']).then (
-  //     //     (loginResponse) => {
-  
-  //     //         //create a credential 
-  //     //         let credential = firebase.auth.FacebookAuthProvider.credential(loginResponse.authResponse.accessToken); 
-              
-  //     //         //sync the login credentials with firebase 
-  //     //         firebase.auth().signInWithCredential(credential).then((success)=>{
-  //     //           console.log(JSON.stringify(success));
-  //     //           if(success){
-  //     //             //success
-                  
-  //     //           }
-  //     //         }).catch(function(error) {
-  //     //           console.log(error); 
-  //     //           return {
-  //     //             error: error
-  //     //           }; 
-  //     //         })
-  //     //     })
-  //     // }
-
-  //     const result =  this.auth.loginWithFacebook();
-  //     if(result){
-  //       console.log(result); 
-  //       this.navCtrl.push(TabsPage); 
-  //     }else{
-  //       alert(Error); 
-  //     }
-
-  //   }
-
-    
-    facebookLoginUser() {
-        this.auth.loginFacebookCordova().then( 
-          result => {
-           console.log("facebook login result: "+ result);
-            if(result.uid){
-              this.navCtrl.setRoot(TabsPage); 
-            }
+  facebookLoginUser() {
+      this.auth.loginFacebookUser().then( 
+        result => {
+          console.log("facebook login result: "+ result);
+          if(result.uid){
+            this.navCtrl.setRoot(TabsPage); 
           }
-        );
-    }
+        }
+      );
+  }
+  
 }

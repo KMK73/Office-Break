@@ -1,3 +1,20 @@
-page-login {
+.login-bg{
+    background-color: #00C2DB; 
+}
 
+$SIDEMENU_TOP: #BEC0A2;
+$SIDEMENU_BOTTOM: #086E7C;
+$SIDEMENU_TRANSPARENCY: rgba(255,255,255,0.4);
+
+
+.background-gradient{
+    background: -webkit-gradient(left top, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
+    background: -o-linear-gradient(bottom right, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
+    background: -moz-linear-gradient(bottom right, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
+    background: linear-gradient(to bottom right, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
+}
+
+ion-item.item {
+    background: transparent;
+    color: white;
 }

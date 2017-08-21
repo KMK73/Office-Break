@@ -4,16 +4,24 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
+<!-- <ion-header>
 
   <ion-navbar>
     <ion-title>Login</ion-title>
   </ion-navbar>
 
-</ion-header>
+</ion-header> -->
 
 
-<ion-content padding>
+<ion-content padding class="background-gradient">
+
+    <ion-row>
+        <ion-col text-center>
+          <h2>Welcome to Office Break</h2>
+          <p>Office Break will get you on your way to moving while you're working.</p>
+        </ion-col>
+    </ion-row>
+
     <ion-item>
       <ion-label floating>Email</ion-label>
       <ion-input type="email" [(ngModel)]="account.email"></ion-input>
@@ -22,10 +30,14 @@
       <ion-label floating>Password</ion-label>
       <ion-input type="password" [(ngModel)]="account.password"></ion-input>
     </ion-item>
+   
+    <ion-row>
+        <ion-col text-center>
+          <button color="secondary" ion-button (click)="login(account)">Login</button>
+          <button ion-button (click)="register()">Register</button>
+      </ion-col>
+    </ion-row>
 
-    <button ion-button (click)="login(account)">Login</button>
-    <button ion-button (click)="register()">Register</button>
-    
     <ion-row>
       <button ion-button full (click)="facebookLoginUser()"><i class="fa fa-facebook-f"></i>Login with Facebook</button>
     </ion-row>

@@ -39,30 +39,7 @@ export class AuthService {
    /**
     * Login with Facebook API 
     */
-    async loginWithFacebook(){
-    
-      try{
-        this.FB.login(['public_profile', 'user_friends', 'email']).then (
-          (loginResponse) => {
-
-            //create a credential 
-            let credential = firebase.auth.FacebookAuthProvider.credential(loginResponse.authResponse.accessToken); 
-            
-              //sync the login credentials with firebase 
-              return  firebase.auth().signInWithCredential(credential);
-              
-            }).catch(function(error) {
-              console.log(error); 
-              return error; 
-            })
-      }catch (error) {
-        console.log(error);
-        return Promise.reject(error);
-      }
-
-    }
-
-    loginFacebookCordova(): Promise<firebase.User> {
+    loginFacebookUser(): Promise<firebase.User> {
       return new Promise<firebase.User>((resolve, reject) => {
         this.FB.login(['public_profile','user_friends', 'email']).then(facebookData => {
               let cred: firebase.auth.AuthCredential = firebase.auth.FacebookAuthProvider.credential(facebookData.authResponse.accessToken);
