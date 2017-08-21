@@ -18,6 +18,8 @@ import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { AuthService } from '../providers/auth/auth';
+import { UserService } from '../providers/user-service/user-service';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler}, 
-    Facebook
+    Facebook,
+    AuthService,
+    UserService
   ]
 })
 export class AppModule {}

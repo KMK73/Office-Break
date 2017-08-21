@@ -8,6 +8,8 @@ import { AngularFireAuth } from 'angularfire2/auth';
 })
 export class HomePage {
 
+  currentUser = {} as firebase.User; 
+
   constructor(public navCtrl: NavController, private afAuth: AngularFireAuth, private toast: ToastController) {
 
   }
@@ -20,6 +22,9 @@ export class HomePage {
             message: `Welcome to Office Break, ${data.email}`, 
             duration: 4000,
           }).present(); 
+          //save user 
+          this.currentUser = data; 
+          console.log(this.currentUser); 
         }else {
           this.toast.create({
             message: `Could not find authentication details.`, 

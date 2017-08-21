@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { User } from "../../models/user";
-import {AngularFireAuth} from 'angularfire2/auth'; 
+import { Account } from "../../models/account.interface";
 import {TabsPage} from '../tabs/tabs'; 
-import firebase from 'firebase'; 
+import { AuthService } from '../../providers/auth/auth'; 
+import { Facebook } from "@ionic-native/facebook";
 
 /**
  * Generated class for the LoginPage page.
@@ -20,20 +21,20 @@ import firebase from 'firebase';
 export class LoginPage {
 
   user = {} as User; 
-  
-  constructor(public navCtrl: NavController, public navParams: NavParams, private afAuth: AngularFireAuth) {
+  account = {} as Account; 
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private auth: AuthService,
+    private FB: Facebook) {
   }
 
-  async login(user:User){
-    //login user with firebase
-    try {
-      const result = await this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password); 
+  async login(){
+    //using auth service provider from firebase
+    const result = await this.auth.loginWithEmailAndPassword(this.account);
+    if(result){
       console.log(result); 
-      if(result){
-        this.navCtrl.push(TabsPage); 
-      }
-    }catch(e){
-      console.log(e);
+      this.navCtrl.push(TabsPage); 
+    }else if (Error){
+      alert(Error); 
     }
   }
 
@@ -44,17 +45,49 @@ export class LoginPage {
   /**
    * Login with Facebook 
    */
-  facebookLogin() {
-    let provider = new firebase.auth.FacebookAuthProvider(); 
+  // facebookLogin() {
 
-    firebase.auth().signInWithRedirect(provider).then(
-      () => {
-          firebase.auth().getRedirectResult().then((result) =>{
-            alert(JSON.stringify(result));
-          }).catch(function(error) {
-            alert(JSON.stringify(error));
-          });
-      }) 
-  }
+  //     //   this.FB.login(['public_profile', 'user_friends', 'email']).then (
+  //     //     (loginResponse) => {
+  
+  //     //         //create a credential 
+  //     //         let credential = firebase.auth.FacebookAuthProvider.credential(loginResponse.authResponse.accessToken); 
+              
+  //     //         //sync the login credentials with firebase 
+  //     //         firebase.auth().signInWithCredential(credential).then((success)=>{
+  //     //           console.log(JSON.stringify(success));
+  //     //           if(success){
+  //     //             //success
+                  
+  //     //           }
+  //     //         }).catch(function(error) {
+  //     //           console.log(error); 
+  //     //           return {
+  //     //             error: error
+  //     //           }; 
+  //     //         })
+  //     //     })
+  //     // }
 
+  //     const result =  this.auth.loginWithFacebook();
+  //     if(result){
+  //       console.log(result); 
+  //       this.navCtrl.push(TabsPage); 
+  //     }else{
+  //       alert(Error); 
+  //     }
+
+  //   }
+
+    
+    facebookLoginUser() {
+        this.auth.loginFacebookCordova().then( 
+          result => {
+           console.log("facebook login result: "+ result);
+            if(result.uid){
+              this.navCtrl.setRoot(TabsPage); 
+            }
+          }
+        );
+    }
 }
