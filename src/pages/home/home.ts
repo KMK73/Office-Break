@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, ToastController } from 'ionic-angular';
+import { NavController, ToastController, AlertController, ActionSheetController } from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth'; 
+import { AngularFireDatabaseModule, AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database'; 
+
 
 @Component({
   selector: 'page-home',
@@ -9,9 +11,14 @@ import { AngularFireAuth } from 'angularfire2/auth';
 export class HomePage {
 
   currentUser = {} as firebase.User; 
+  //office breaks
+  breaks: FirebaseListObservable<any>;
 
-  constructor(public navCtrl: NavController, private afAuth: AngularFireAuth, private toast: ToastController) {
-
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController,
+    private afAuth: AngularFireAuth,public actionSheetCtrl: ActionSheetController, 
+    private toast: ToastController, private afDB: AngularFireDatabase) {
+      //get latest breaks list 
+      this.breaks = afDB.list('/breaks');
   }
 
   ionViewWillLoad(){
@@ -20,7 +27,7 @@ export class HomePage {
         if(data.email && data.uid){
           this.toast.create({
             message: `Welcome to Office Break, ${data.email}`, 
-            duration: 4000,
+            duration: 3000,
           }).present(); 
           //save user 
           this.currentUser = data; 
@@ -33,6 +40,98 @@ export class HomePage {
         }
       }
     );
+  }
+
+  addBreak(){
+    let prompt = this.alertCtrl.create({
+      title: 'Break Exercise',
+      message: "Enter a name for this new exercise you will do on your break",
+      inputs: [
+        {
+          name: 'exercise',
+          placeholder: 'Exercise'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Save',
+          handler: data => {
+            this.breaks.push({
+              exercise: data.exercise
+            });
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
+  showOptions(breakId, breakExercise) {
+    let actionSheet = this.actionSheetCtrl.create({
+      title: 'What do you want to do?',
+      buttons: [
+        {
+          text: 'Delete Break',
+          role: 'destructive',
+          handler: () => {
+            this.removeBreak(breakId);
+          }
+        },{
+          text: 'Update Exercise',
+          handler: () => {
+            this.updateBreak(breakId, breakExercise);
+          }
+        },{
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    actionSheet.present();
+  }
+
+  removeBreak(breakId: string){
+    this.breaks.remove(breakId);
+  }
+
+  updateBreak(breakId, breakExercise){
+    let prompt = this.alertCtrl.create({
+      title: 'Exercise Name',
+      message: "Update the name for this exercise",
+      inputs: [
+        {
+          name: 'exercise',
+          placeholder: 'Exercise',
+          value: breakExercise
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Save',
+          handler: data => {
+            this.breaks.update(breakId, {
+              exercise: data.exercise
+            });
+          }
+        }
+      ]
+    });
+    prompt.present();
   }
 
 }

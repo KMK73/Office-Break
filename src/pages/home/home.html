@@ -1,17 +1,19 @@
 <ion-header>
   <ion-navbar>
     <ion-title>Home</ion-title>
+    <ion-buttons end>
+        <button ion-button icon-only (click)="addBreak()">
+          <ion-icon name="add"></ion-icon>
+        </button>
+      </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h2>Welcome to Ionic {{currentUser.displayName}}</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+  <h2>Welcome to Ionic {{currentUser?.email}}</h2>
+  <ion-list>
+      <ion-item *ngFor="let break of breaks | async" (click)="showOptions(break.$key, break.exercise)">
+        {{break.exercise}}
+      </ion-item>
+    </ion-list>
 </ion-content>

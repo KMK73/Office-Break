@@ -6,13 +6,14 @@ import { MyApp } from './app.component';
 import { AngularFireModule } from 'angularfire2';
 import { FIREBASE_CONFIG} from './app.firebase.config'; 
 import { AngularFireAuthModule } from 'angularfire2/auth'; 
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 //Facebook 
 import {Facebook } from '@ionic-native/facebook'; 
 
 //pages
-import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
+import { MovementsPage } from '../pages/movements/movements';
+import { BreakPlanPage } from '../pages/break-plan/break-plan';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 
@@ -20,12 +21,13 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthService } from '../providers/auth/auth';
 import { UserService } from '../providers/user-service/user-service';
+import { Http } from '@angular/http';
 
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
-    ContactPage,
+    MovementsPage,
+    BreakPlanPage,
     HomePage,
     TabsPage
   ],
@@ -33,13 +35,14 @@ import { UserService } from '../providers/user-service/user-service';
     BrowserModule,
     IonicModule.forRoot(MyApp), 
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    AngularFireDatabaseModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AboutPage,
-    ContactPage,
+    MovementsPage,
+    BreakPlanPage,
     HomePage,
     TabsPage
   ],
@@ -49,7 +52,8 @@ import { UserService } from '../providers/user-service/user-service';
     {provide: ErrorHandler, useClass: IonicErrorHandler}, 
     Facebook,
     AuthService,
-    UserService
+    UserService, 
+    Http
   ]
 })
 export class AppModule {}
