@@ -22,6 +22,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthService } from '../providers/auth/auth';
 import { UserService } from '../providers/user-service/user-service';
 import { Http } from '@angular/http';
+import { RoundProgressModule } from "angular-svg-round-progressbar/dist";
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { Http } from '@angular/http';
     IonicModule.forRoot(MyApp), 
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
     AngularFireAuthModule,
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    RoundProgressModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
