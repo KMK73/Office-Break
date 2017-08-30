@@ -30,6 +30,7 @@ export class HomePage {
 
       //get latest breaks list 
       this.breaks = afDB.list('/breaks');
+      
   }
 
   ionViewWillLoad(){
@@ -150,7 +151,7 @@ export class HomePage {
     let transform = (isSemi ? '' : 'translateY(-50%) ') + 'translateX(-50%)';
 
     return {
-      'top': isSemi ? 'auto' : '50%',
+      'top': isSemi ? 'auto' : '40%',
       'bottom': isSemi ? '5%' : 'auto',
       'left': '50%',
       'transform': transform,

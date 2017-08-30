@@ -3,13 +3,15 @@
     margin-right: auto;
     display: block;
 }
+
 .current {
     position: absolute;
+    // top: 40%;
     color: #bbb;
     font-weight: 100;
     line-height: 1;
 }
 
 ion-item.item {
-    color: black !important; 
+    color: black !important;
 }
