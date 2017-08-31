@@ -19,14 +19,8 @@ export class HomePage {
   breaks: FirebaseListObservable<any>;
 
   constructor(public navCtrl: NavController, public alertCtrl: AlertController,
-    private afAuth: AngularFireAuth,public actionSheetCtrl: ActionSheetController, 
+    private afAuth: AngularFireAuth, public actionSheetCtrl: ActionSheetController, 
     private toast: ToastController, private afDB: AngularFireDatabase) {
-
-      //circle progess bar configuration settings
-      // _config.setDefaults({
-      //   color: '#75C458',
-      //   background: '#0f0'
-      // });
 
       //get latest breaks list 
       this.breaks = afDB.list('/breaks');
@@ -36,6 +30,7 @@ export class HomePage {
   ionViewWillLoad(){
     this.afAuth.authState.subscribe(
       (data) => {
+        // debugger;
         if(data.email && data.uid){
           this.toast.create({
             message: `Welcome to Office Break, ${data.email}`, 

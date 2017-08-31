@@ -1,11 +1,16 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      Break Plan
-    </ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>
+            Break Plan
+        </ion-title>
+    </ion-navbar>
 </ion-header>
 
 <ion-content>
-
+    <button ion-button (click)="setBreakTime()">Set Break Plan Time</button>
+    <ion-list>
+        <ion-item *ngFor="let break of  breakTimes$ | async">
+            {{break.break_time}}
+        </ion-item>
+    </ion-list>
 </ion-content>
