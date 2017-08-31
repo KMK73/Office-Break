@@ -1,0 +1,30 @@
+User {
+    firebase User;
+    breaks?: Break[]; 
+    breakSettings: BreakSettings; 
+}
+
+Break {
+
+        time: datetime;
+        exercise: string;
+}
+
+BreakSettings {
+    days: [
+        Monday, Tuesday, Wednesday
+    ],
+    start_time: datetime; (time for when a break reminder can happen),
+    end_time: datetime; (time for when reminders need to stop i.e.5 pm),
+    number_of_reminders_per_day: number; 
+    reminderGoal?: number; 
+    locationTrackingOn?: boolean;
+}
+
+BreakReminder {
+    latitude: number; 
+    longitude: number; 
+    time: datetime; 
+    completed?: boolean; 
+    Break: break; 
+}

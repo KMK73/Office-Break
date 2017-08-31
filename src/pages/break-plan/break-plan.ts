@@ -32,7 +32,7 @@ export class BreakPlanPage {
       message: "Enter a time to be reminded for your break",
       inputs: [
         {
-          name: 'break_time',
+          name: 'time',
           placeholder: 'Time'
         },
       ],
@@ -50,7 +50,7 @@ export class BreakPlanPage {
             //   exercise: data.exercise
             // });
             this.afDB.database.ref('break_times/' + this.currentUser.uid).set({
-              time: data.break_time
+              time: data.time
             });
           }
         }
