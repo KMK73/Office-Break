@@ -1,3 +1,23 @@
+'/users/12341'
+
+{
+    'users': {
+        '96789679': {
+            'breaks': {
+                'h4235': true
+            }
+        }
+    },
+
+    'breaks': {
+        'h4235': {
+            'user_id': '96789679',
+            'time': 9238457293485 // UTC UNIX timestamps,
+            'exercise': 'string'
+        }
+    }
+}
+
 User {
     firebase User;
     breaks?: Break[]; 
